@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séries da Marvel - LIKE</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            text-align: center;
+        }
 
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+
+        .serie {
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 400px;
+            background-color: #111;
+        }
+
+        .serie h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .contador {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #e6c200;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Qual série da Marvel que você gostou?</h>
+    <div class="serie">
+        <h2>WandaVision</h2>
+        <span class="contador" id="contador-wandavision">0</span>
+        <p>amou</p>
+        <button onclick="amei('wandavision')">👍 Gostei</button>
+    </di
+    <div class="serie">
+        <h2>Vision Quest</h2>
+        <span class="contador" id="contador-visionary">0</span>
+        <p>gostaram</p>
+        <button onclick="amei('visionary')">👍 Gostei</button>
+    </div>
+    <div class="serie">
+        <h2>Moon Knight</h2>
+        <span class="contador" id="contador-moonknight">0</span>
+        <p>gostaram</p>
+        <button onclick="gostei('moonknight')">👍 Gostei</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
