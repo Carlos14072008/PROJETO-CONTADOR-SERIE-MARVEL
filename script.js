@@ -9,7 +9,7 @@ series.forEach(serie => {
 });
 
 // Função do botão Gostei
-function gostei(serie) {
+function amei(serie) {
     const elemento = document.getElementById("contador-" + serie);
     let valor = parseInt(elemento.textContent);
     valor++;
