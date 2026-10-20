@@ -1,18 +1,44 @@
-// Carrega os contadores salvos
-const series = ["wandavision", "vision", "moonknight"];
+let dados = {
+    wandavision: 0,
+    vision: 0,
+    moonknight: 0
+};
 
-series.forEach(serie => {
-    const salvo = localStorage.getItem("contador-" + serie);
-    if (salvo) {
-        document.getElementById("contador-" + serie).textContent = salvo;
-    }
-});
+// Tenta carregar o dados.json
+fetch("dados.json")
+    .then(res => res.json())
+    .then(json => {
+        dados = json;
+
+        // Se já tiver valores salvos no navegador, usa eles
+        const salvo = localStorage.getItem("contadoresMarvel");
+        if (salvo) {
+            dados = JSON.parse(salvo);
+        }
+
+        atualizarTela();
+    })
+    .catch(() => {
+        // Se der erro ao ler o JSON (ex: abrindo o arquivo direto), usa localStorage
+        const salvo = localStorage.getItem("contadoresMarvel");
+        if (salvo) {
+            dados = JSON.parse(salvo);
+        }
+        atualizarTela();
+    });
+
+// Atualiza os números na tela
+function atualizarTela() {
+    document.getElementById("contador-wandavision").textContent = dados.wandavision;
+    document.getElementById("contador-vision").textContent = dados.vision;
+    document.getElementById("contador-moonknight").textContent = dados.moonknight;
+}
 
 // Função do botão Gostei
-function amei(serie) {
-    const elemento = document.getElementById("contador-" + serie);
-    let valor = parseInt(elemento.textContent);
-    valor++;
-    elemento.textContent = valor;
-    localStorage.setItem("contador-" + serie, valor);
+function gostei(serie) {
+    dados[serie]++;
+    atualizarTela();
+
+    // Salva tudo no localStorage
+    localStorage.setItem("contadoresMarvel", JSON.stringify(dados));
 }
