@@ -3,53 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Séries da Marvel - LIKE</title>
+    <title>Séries Marvel + Zack Stryker</title>
     <style>
         body {
-            background-color: #000;
+            background-color: #0f0f0f;
             color: #FFD700;
-            font-family: Arial, sans-serif;
+            font-family: "Roboto", Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
         }
 
         h1 {
-            margin-bottom: 40px;
-            font-size: 2.2rem;
+            margin: 20px 0 30px 0;
+            font-size: 2rem;
         }
 
+        /* Menu de navegação */
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .menu a {
+            background-color: #FFD700;
+            color: #000;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background-color: #e6c200;
+            transform: scale(1.05);
+        }
+
+        /* Card estilo YouTube */
+        .yt-channel {
+            background-color: #212121;
+            border-radius: 12px;
+            max-width: 480px;
+            margin: 0 auto 50px auto;
+            overflow: hidden;
+            text-align: left;
+            border: 1px solid #333;
+        }
+
+        .yt-banner {
+            height: 110px;
+            background: linear-gradient(90deg, #FFD700, #b8860b);
+        }
+
+        .yt-info {
+            padding: 16px 20px 20px 20px;
+            position: relative;
+        }
+
+        .yt-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #212121;
+            position: absolute;
+            top: -40px;
+            left: 20px;
+            object-fit: cover;
+            background-color: #333;
+        }
+
+        .yt-name {
+            margin-left: 100px;
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .yt-subs {
+            margin-left: 100px;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .yt-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 8px;
+            margin-top: 5px;
+        }
+
+        .yt-btn:hover {
+            background-color: #e6c200;
+        }
+
+        /* Séries */
         .serie {
             border: 2px solid #FFD700;
             border-radius: 12px;
-            padding: 25px;
-            margin: 20px auto;
-            max-width: 400px;
-            background-color: #111;
+            padding: 20px;
+            margin: 25px auto;
+            max-width: 300px;
+            background-color: #1a1a1a;
+        }
+
+        .serie img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 2px solid #FFD700;
         }
 
         .serie h2 {
-            margin: 0 0 15px 0;
-            font-size: 1.5rem;
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
+            color: #FFD700;
         }
 
         .contador {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
             display: block;
-            margin: 10px 0;
+            margin: 8px 0;
+            color: #FFD700;
         }
 
         button {
             background-color: #FFD700;
             color: #000;
             border: none;
-            padding: 10px 25px;
-            font-size: 1.1rem;
+            padding: 10px 22px;
+            font-size: 1rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         button:hover {
@@ -59,20 +161,55 @@
 </head>
 <body>
 
-    <h1>Qual série da Marvel que você gostou?</h>
+    <h1>Séries Marvel + Zack Stryker</h1>
+
+    <!-- MENU DE NAVEGAÇÃO -->
+    <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="videos.html">Meus Vídeos</a>
+        <a href="despertador.html">Despertador + MP3</a>
+        <a href="converter.html">Converter Vídeo → MP3</a>
+    </div>
+
+    <!-- Card do canal -->
+    <div class="yt-channel">
+        <div class="yt-banner"></div>
+        <div class="yt-info">
+            <img class="yt-avatar" 
+                 src="https://yt3.googleusercontent.com/T2DH0LIUP95l6-wuV_m_7VpRt8D8DGJCRjQGOCrwpq0xc2kzqzd4i8-9FhVKw207luHVOJc6zDk=s160-c-k-c0x00ffffff-no-rj" 
+                 alt="Zack Stryker">
+            
+            <div class="yt-name">Zack Stryker</div>
+            <div class="yt-subs">@zackstryker_1</div>
+            
+            <a href="https://www.youtube.com/@zackstryker_1" target="_blank" class="yt-btn">
+                Ver Canal no YouTube
+            </a>
+            <a href="videos.html" class="yt-btn">
+                Ver Meus Vídeos
+            </a>
+        </div>
+    </div>
+
+    <!-- Séries -->
     <div class="serie">
+        <img src="https://m.media-amazon.com/images/M/MV5BZTMxMmM1ODItMTZiMS00NjI1LWEwODctMjQ4ZjY4ODliNDI0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="WandaVision">
         <h2>WandaVision</h2>
         <span class="contador" id="contador-wandavision">0</span>
-        <p>amou</p>
-        <button onclick="gostei('wandavision')">👍 Gostei</button>
-    </di
-    <div class="serie">
-        <h2>Vision Quest</h2>
-        <span class="contador" id="contador-vision">0</span>
         <p>gostaram</p>
-        <button onclick="gostei('vision')">👍 Gostei</button>
+        <button onclick="gostei('wandavision')">👍 Gostei</button>
     </div>
+
     <div class="serie">
+        <img src="https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg" alt="Vision Quest">
+        <h2>Vision Quest</h2>
+        <span class="contador" id="contador-visionary">0</span>
+        <p>gostaram</p>
+        <button onclick="gostei('visionary')">👍 Gostei</button>
+    </div>
+
+    <div class="serie">
+        <img src="https://www.europanet.com.br/upload/id_produto/107___/107282g.jpg" alt="Moon Knight">
         <h2>Moon Knight</h2>
         <span class="contador" id="contador-moonknight">0</span>
         <p>gostaram</p>
