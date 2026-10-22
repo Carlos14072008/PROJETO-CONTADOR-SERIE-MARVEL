@@ -2,23 +2,161 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Converter Vídeo em MP3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter Vídeo → MP3</title>
     <style>
-        body { background:#0f0f0f; color:#FFD700; font-family:Arial; text-align:center; padding:40px 20px; }
-        .card { background:#1a1a1a; border:2px solid #FFD700; border-radius:12px; padding:30px; max-width:500px; margin:0 auto; }
-        a { color:#FFD700; }
-        .voltar { display:inline-block; margin-bottom:30px; border:1px solid #FFD700; padding:8px 18px; border-radius:20px; text-decoration:none; color:#FFD700; }
+        body {
+            background-color: #0f0f0f;
+            color: #FFD700;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        h1 { margin-bottom: 10px; }
+        .card {
+            background: #1a1a1a;
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 30px auto;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background: #333;
+            color: #FFD700;
+            border: none;
+            border-radius: 8px;
+        }
+        button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover { background: #e6c200; }
+        button:disabled {
+            background: #555;
+            color: #999;
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            min-height: 30px;
+        }
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #FFD700;
+            text-decoration: none;
+            border: 1px solid #FFD700;
+            padding: 8px 18px;
+            border-radius: 20px;
+        }
+        .voltar:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        .aviso {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
+
     <a href="index.html" class="voltar">← Voltar</a>
     <h1>Converter Vídeo em MP3</h1>
+    <p>Conversão 100% local (não envia nada para a internet)</p>
+
     <div class="card">
-        <p>Infelizmente não é possível converter vídeo em MP3 diretamente no navegador de forma simples e leve.</p>
-        <p>Recomendação rápida e gratuita:</p>
-        <p><a href="https://cloudconvert.com/video-to-mp3" target="_blank">CloudConvert – Vídeo para MP3</a></p>
-        <p>ou</p>
-        <p><a href="https://online-audio-converter.com/" target="_blank">Online Audio Converter</a></p>
+        <input type="file" id="videoInput" accept="video/*">
+        
+        <button id="btnConverter" disabled>Converter para MP3</button>
+        
+        <div id="status">Selecione um vídeo para começar</div>
+        
+        <p class="aviso">
+            A primeira vez pode demorar um pouco para carregar o conversor (cerca de 25 MB).<br>
+            Depois fica mais rápido.
+        </p>
     </div>
+
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
+    <script>
+        const { FFmpeg } = FFmpegWASM;
+        const ffmpeg = new FFmpeg();
+        
+        const videoInput = document.getElementById("videoInput");
+        const btnConverter = document.getElementById("btnConverter");
+        const status = document.getElementById("status");
+
+        let videoFile = null;
+
+        videoInput.addEventListener("change", (e) => {
+            videoFile = e.target.files[0];
+            if (videoFile) {
+                btnConverter.disabled = false;
+                status.textContent = `Arquivo selecionado: ${videoFile.name}`;
+            }
+        });
+
+        btnConverter.addEventListener("click", async () => {
+            if (!videoFile) return;
+
+            btnConverter.disabled = true;
+            status.textContent = "Carregando conversor... (pode demorar na primeira vez)";
+
+            try {
+                if (!ffmpeg.loaded) {
+                    await ffmpeg.load({
+                        coreURL: "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js"
+                    });
+                }
+
+                status.textContent = "Convertendo... aguarde";
+
+                const videoData = await videoFile.arrayBuffer();
+                await ffmpeg.writeFile("input.mp4", new Uint8Array(videoData));
+
+                await ffmpeg.exec([
+                    "-i", "input.mp4",
+                    "-vn",
+                    "-acodec", "libmp3lame",
+                    "-q:a", "2",
+                    "output.mp3"
+                ]);
+
+                const data = await ffmpeg.readFile("output.mp3");
+
+                const blob = new Blob([data.buffer], { type: "audio/mp3" });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = videoFile.name.replace(/\.[^/.]+$/, "") + ".mp3";
+                a.click();
+
+                status.textContent = "✅ Conversão concluída! Download iniciado.";
+                
+            } catch (erro) {
+                console.error(erro);
+                status.textContent = "❌ Erro na conversão. Tente outro arquivo.";
+            }
+
+            btnConverter.disabled = false;
+        });
+    </script>
 </body>
 </html>
